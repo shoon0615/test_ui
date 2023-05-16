@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+	<header th:fragment="headerFragment">
+		<div class="navbar navbar-dark bg-dark shadow-sm mb-3">
+			<div class="container d-flex justify-content-between">
+				<a href="/test/main" class="navbar-brand d-flex align-items-center">
+					<strong>게시판</strong>
+				</a>
+
+				<a href="/test/main"
+				   class="navbar-brand d-flex align-items-center"
+				   style="position: fixed;margin-left: 100px;">
+					<span>사용자</span>
+				</a>
+				<a href="/test/admin"
+				   class="navbar-brand d-flex align-items-center"
+				   style="position: fixed;margin-left: 200px;">
+					<span>관리자</span>
+				</a>
+			</div>
+		</div>
+	</header>
+</html>

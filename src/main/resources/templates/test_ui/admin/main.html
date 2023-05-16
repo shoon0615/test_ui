@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+	<th:block layout:fragment="content">
+		<div class="container main">
+			<span>관리자 페이지</span>
+			<button class="btn btn-info"
+			        style="float: right;"
+			        id="button1"
+			        th:text="조회"></button>
+
+			<table class="table mt-3">
+				<thead class="thead-light">
+					<tr class="text-center">
+						<th scope="col">#</th>
+						<th scope="col">제목</th>
+						<th scope="col">작성자</th>
+						<th scope="col">작성일</th>
+					</tr>
+				</thead>
+				<tbody id="list"></tbody>
+			</table>
+		</div>
+	</th:block>
+
+	<th:block layout:fragment="css">
+		<style>
+			.container.main {
+				min-height: 500px;
+			}
+		</style>
+	</th:block>
+
+	<th:block layout:fragment="script">
+		<script>
+			// window.onLoad($.function()) 과 동일
+			document.addEventListener('DOMContentLoaded', () => {
+				// click 이벤트와 동일
+			    document.querySelector('#button1').addEventListener('click', () => {
+			        selectTest()
+				})
+			})
+
+			function selectTest() {
+				let axiosConfig = {
+					method: 'post',
+					url: ui.test,
+					data: {}
+				}
+
+				axios(axiosConfig)
+					.then(response => {
+						console.log('success', response)
+						let html = ''
+						if (!response.data.length) {
+							html = '<td colspan="5">등록된 게시글이 없습니다.</td>'
+						} else {
+							response.data.forEach((obj, idx) => {
+								// 백틱(${} 표현식) 사용 -> JQuery($()) 아님
+								html += `
+									<tr class="text-center">
+		                                <td class="text-left">${response.data.length - idx}</td>
+		                                <td>
+		                                    <a href="javascript: void(0);">${obj.title}</a>
+		                                </td>
+		                                <td>${obj.author}</td>
+		                                <td></td>
+									</tr>
+								`;
+							});
+						}
+						document.getElementById('list').innerHTML = html
+					})
+					.catch(error => {
+						console.log('catch', error)
+					})
+					.finally(() => {
+						console.log('finally')
+					})
+			}
+		</script>
+	</th:block>
+</html>

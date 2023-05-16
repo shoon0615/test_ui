@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
+	<th:block layout:fragment="content">
+		<div class="container main">
+			<span>사용자 페이지</span>
+			<div class="mt-3 mb-3">
+				<label for="input1" class="form-label">페이지 로딩 전</label>
+				<input type="text" class="form-control w-50" id="input1"
+				       th:value="${not #maps.isEmpty(result) and #maps.containsKey(result, 'title') ? result.title : ''}">
+			</div>
+			<div class="mt-3 mb-3">
+				<label for="input2" class="form-label">페이지 로딩 후</label>
+				<input type="text" class="form-control w-50" id="input2">
+			</div>
+		</div>
+	</th:block>
+
+	<th:block layout:fragment="css">
+		<style>
+			.container.main {
+				min-height: 500px;
+			}
+		</style>
+	</th:block>
+
+	<th:block layout:fragment="script">
+		<script>
+			// window.onLoad($.function()) 과 동일
+			document.addEventListener('DOMContentLoaded', () => {
+				axios.get(ui.test + '/1')
+					.then(response => {
+						console.log('success', response)
+						if (response.data) {
+							input2.value = response.data.title
+						}
+					})
+					.catch(error => {
+						console.log('catch', error)
+					})
+					.finally(() => {
+						console.log('finally')
+					})
+			})
+		</script>
+	</th:block>
+</html>

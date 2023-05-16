@@ -1,0 +1,25 @@
+server:
+  port: 8090
+
+spring:
+  freemarker:
+    cache: false
+  profiles:
+    active: local                       # local(로컬), dev(개발기), prod(운영기)
+  config:
+    import:
+      - optional:classpath:custom.yml   # optional: 파일이 존재하지 않아도 에러 미발생
+  devtools:
+    livereload:
+      enable: true
+      enabled: true
+    remote:
+      restart:
+        enabled: true
+  # 생략 가능
+  thymeleaf:
+    cache: false
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+    enabled: true
