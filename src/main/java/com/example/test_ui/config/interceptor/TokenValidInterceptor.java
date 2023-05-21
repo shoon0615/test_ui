@@ -2,12 +2,15 @@ package com.example.test_ui.config.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
-// @Component
+@Component
+@RequiredArgsConstructor
 public class TokenValidInterceptor implements HandlerInterceptor {
 
     // 컨트롤러 접근 전 실행
@@ -22,5 +25,6 @@ public class TokenValidInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         log.info("==================== END ====================");
+        request.setAttribute("cartData", 1L);
     }
 }

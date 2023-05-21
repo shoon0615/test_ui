@@ -18,6 +18,9 @@
 				   style="position: fixed;margin-left: 200px;">
 					<span>관리자</span>
 				</a>
+
+				<span class="navbar-brand d-flex"
+				      th:text="${#strings.isEmpty(cartData) ? 0 : cartData}"></span>
 			</div>
 		</div>
 	</header>
