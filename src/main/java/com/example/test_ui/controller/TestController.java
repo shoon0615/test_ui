@@ -34,8 +34,8 @@ public class TestController {
         return "/test_ui/admin/main";
     }
 
-    @GetMapping("/admin3")
-    public String admin3(Model model) {
+    @GetMapping("/admin2")
+    public String admin2(Model model) {
         return "/test_ui/admin/main";
     }
 
