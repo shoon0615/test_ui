@@ -39,4 +39,9 @@ public class TestController {
         return "/test_ui/admin/main";
     }
 
+    @GetMapping("/adminlte")
+    public String adminlte(Model model) {
+        return "/test_ui/admin/adminlte";
+    }
+
 }

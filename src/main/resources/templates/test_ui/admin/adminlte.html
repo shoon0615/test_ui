@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/adminlte/default}">
+	<th:block layout:fragment="content">
+		<div class="container main">
+			<span>관리자 페이지</span>
+			<button class="btn btn-info"
+			        style="float: right;"
+			        id="button1"
+			        th:text="조회"></button>
+
+			<table class="table mt-3">
+				<thead class="thead-light">
+				<tr class="text-center">
+					<th scope="col">#</th>
+					<th scope="col">제목</th>
+					<th scope="col">작성자</th>
+					<th scope="col">작성일</th>
+				</tr>
+				</thead>
+				<tbody id="list"></tbody>
+			</table>
+		</div>
+	</th:block>
+</html>
