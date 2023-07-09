@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title id="Description">To sort data against a DataTable column or to change the column's sort order, click a column header. TypeScript example.</title>
+	<meta name="description" content="This typescript sample demonstrates how we can bind a DataTable widget to an Array of data and implement Sorting and Paging">
+
+	<!-- 1. Load references -->
+	<link rel="stylesheet" th:href="@{/adminlte/plugins/jqxgrid/jqx.base.css}">
+	<!-- jQuery -->
+	<script th:src="@{/adminlte/plugins/jquery/jquery.min.js}" rel="script" type="text/javascript"></script>
+	<!-- jqxGrid -->
+	<script th:src="@{/adminlte/plugins/jqxgrid/jqx-all.js}"></script>
+	<!-- jqxGrid for demo purposes -->
+	<script th:src="@{/adminlte/plugins/jqxgrid/demos.js}"></script>
+	<script th:src="@{/adminlte/plugins/jqxgrid/generatedata.js}"></script>
+
+	<!-- 2. Create initialization -->
+	<script>
+        $(document).ready(function () {
+		    // json 형태의 data를 만들어 준다. grid 안에 셋팅될 값들이다.
+		    var data = [
+		        {
+				    "CompanyName" : "Alfreds Futterkiste",
+				    "ContactName" : "Maria Anders",
+				    "ContactTitle" : "Sales Representative",
+				    "Address" : "Obere Str. 57",
+				    "City" : "Berlin",
+				    "Country" : "Germany"
+				}
+			];
+			// 데이터 타입, 필드, 셋팅할 데이터를 설정한다.
+			var source =
+			{
+			    datatype: "json", // json 형태의 데이터를 셋팅할 것이고.
+			    // 각필의 이름과 타입은 datafields에 마찬가지로 json 형태이다.
+			    datafields: [
+			        { name: 'CompanyName', type: 'string' },
+			        { name: 'ContactName', type: 'string' },
+			        { name: 'ContactTitle', type: 'string' },
+			        { name: 'Address', type: 'string' },
+			        { name: 'City', type: 'string' },
+			        { name: 'Country', type: 'string' }
+			    ],
+			    localdata: data // 위에서 셋팅해놓은 data를 localdata에 담아준다.
+			};
+			// jqxgrid 프레임워크에서 만든 dataAdapter object를 생성하여
+			// 위에서 셋팅한 source의 정보를 넣어준다.
+			var dataAdapter = new $.jqx.dataAdapter(source);
+
+			// HTML 파일에 div의 id로 입력해놓은 jqxgrid에 dataAdapter의 정보를
+			// grid 형태로 출력한다.
+			$("#dataTable").jqxGrid({
+		        // 이곳에 들어갈 수 있는 설정값들은 매우 다양하다.
+		        // 나중에 조금 더 자세히 알아보기로 하자.
+		        width: 850, //높이
+		        source: dataAdapter, //위에서 만든 dataAdapter
+		        columnsresize: true, //column의 너비를 컨텐츠에 맞게 리사이징
+		        columns: [ // 각 컬럼값들의 대한 설정이다.
+		            // 일반적으로 text,datafield는 필수적으로 설정하다.
+		            // 그밖에 다양한 속성값들이 있으므로 이 또한 다음 시간에 알아보기로 한다.
+		            { text: 'Company Name', datafield: 'CompanyName', width: 250 },
+		            { text: 'Contact Name', datafield: 'ContactName', width: 150 },
+		            { text: 'Contact Title', datafield: 'ContactTitle', width: 180 },
+		            { text: 'City', datafield: 'City', width: 120 },
+		            { text: 'Country', datafield: 'Country' }
+		        ]
+			});
+		});
+     </script>
+
+</head>
+
+<!-- 3. Display the application -->
+<body>
+<div class="example-description">
+	To sort data against a DataTable column or to change the column's sort order, click a column header. TypeScript example.
+</div>
+<div id="dataTable"></div>
+</body>
+
+</html>

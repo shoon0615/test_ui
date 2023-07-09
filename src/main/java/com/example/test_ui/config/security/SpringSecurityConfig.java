@@ -16,7 +16,7 @@ public class SpringSecurityConfig {
         http.csrf().disable().cors().disable()
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                        .requestMatchers("/test/main", "/test/admin", "/api/v1/test/**").permitAll()
+                        .requestMatchers("/test/main", "/test/admin", "/api/v1/test/**", "/test/adminlte/**").permitAll()
                         .anyRequest().authenticated()	// 어떠한 요청이라도 인증필요
                 )
                 .formLogin(login -> login	            // form 방식 로그인 사용
@@ -30,6 +30,6 @@ public class SpringSecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .requestMatchers("/css/**", "/images/**", "/js/**", "/webjars/**");
+                .requestMatchers("/css/**", "/images/**", "/js/**", "/webjars/**", "/adminlte/**");
     }
 }

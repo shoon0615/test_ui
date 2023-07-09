@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title id="Description">To sort data against a DataTable column or to change the column's sort order, click a column header. TypeScript example.</title>
+	<meta name="description" content="This typescript sample demonstrates how we can bind a DataTable widget to an Array of data and implement Sorting and Paging">
+
+	<!-- 1. Load references -->
+	<link rel="stylesheet" th:href="@{/adminlte/plugins/jqxgrid/jqx.base.css}">
+	<!-- jQuery -->
+	<script th:src="@{/adminlte/plugins/jquery/jquery.min.js}" rel="script" type="text/javascript"></script>
+	<!-- jqxGrid -->
+	<script th:src="@{/adminlte/plugins/jqxgrid/jqx-all.js}"></script>
+	<!-- jqxGrid for demo purposes -->
+	<script th:src="@{/adminlte/plugins/jqxgrid/demos.js}"></script>
+	<script th:src="@{/adminlte/plugins/jqxgrid/generatedata.js}"></script>
+
+	<!-- 2. Create initialization -->
+	<script>
+        $(document).ready(function () {
+            createDataTableSorting('#dataTable');
+        });
+
+        function createDataTableSorting(selector) {
+		    var source = {
+		        localdata: generatedata(85),
+		        datatype: "array",
+		        datafields: [
+		            { name: 'firstname', type: 'string' },
+		            { name: 'lastname', type: 'string' },
+		            { name: 'productname', type: 'string' },
+		            { name: 'quantity', type: 'number' },
+		            { name: 'price', type: 'number' },
+		            { name: 'total', type: 'number' }
+		        ],
+		        sortcolumn: 'firstname',
+		        sortdirection: 'asc'
+		    };
+		    var dataAdapter = new $.jqx.dataAdapter(source);
+		    // initialization options - validated in typescript
+		    // jqwidgets.DataTableOptions has generated TS definition
+		    var options = {
+		        source: dataAdapter,
+		        sortable: true,
+		        pageable: true,
+		        altRows: true,
+		        columns: [
+		            { text: 'Name', dataField: 'firstname', width: 200 },
+		            { text: 'Last Name', dataField: 'lastname', width: 200 },
+		            { text: 'Product', editable: false, dataField: 'productname', width: 180 },
+		            { text: 'Quantity', dataField: 'quantity', width: 80, align: 'right', cellsAlign: 'right' },
+		            { text: 'Unit Price', dataField: 'price', width: 90, align: 'right', cellsAlign: 'right', cellsFormat: 'c2' },
+		            { text: 'Total', dataField: 'total', width: 100, align: 'right', cellsAlign: 'right', cellsFormat: 'c2' }
+		        ]
+		    };
+		    // creates an instance
+		    var myDataTable = jqwidgets.createInstance(selector, 'jqxDataTable', options);
+		}
+     </script>
+
+</head>
+
+<!-- 3. Display the application -->
+<body>
+<div class="example-description">
+	To sort data against a DataTable column or to change the column's sort order, click a column header. TypeScript example.
+</div>
+<div id="dataTable"></div>
+</body>
+
+</html>

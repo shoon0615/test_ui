@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -42,6 +43,21 @@ public class TestController {
     @GetMapping("/adminlte")
     public String adminlte(Model model) {
         return "/test_ui/admin/adminlte";
+    }
+
+    @GetMapping("/adminlte/starter")
+    public String adminlte_starter(Model model) {
+        return "/test_ui/admin/starter";
+    }
+
+    @GetMapping("/adminlte/jsgrid")
+    public String adminlte_jsgrid(Model model) {
+        return "/test_ui/admin/jsgrid";
+    }
+
+    @GetMapping("/adminlte/jqxgrid/{num}")
+    public String adminlte_jqxgrid(Model model, @PathVariable("num") String num) {
+        return "/test_ui/admin/jqxgrid" + num;
     }
 
 }
