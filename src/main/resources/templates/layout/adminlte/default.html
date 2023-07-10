@@ -11,14 +11,20 @@
 		<title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">공통 타이틀</title>
 	</head>
 
-	<body>
-		<!--Header 영역을 참조합니다.-->
-		<header th:replace="~{fragment/adminlte/header :: headerFragment}"></header>
+	<body class="hold-transition sidebar-mini layout-fixed">
+		<div class="wrapper">
+			<!--Header 영역을 참조합니다.-->
+			<nav th:replace="~{fragment/adminlte/header :: headerFragment}"></nav>
 
-		<!--Content 내용 영역을 참조합니다-->
-		<th:block layout:fragment="content"></th:block>
+			<aside th:replace="~{fragment/adminlte/side :: sideFragment}"></aside>
 
-		<!--Footer 영역을 참조합니다.-->
-		<footer th:replace="~{fragment/adminlte/footer :: footerFragment}"></footer>
+			<!--Content 내용 영역을 참조합니다-->
+			<div layout:fragment="content"></div>
+
+			<aside th:replace="~{fragment/adminlte/side2 :: side2Fragment}"></aside>
+
+			<!--Footer 영역을 참조합니다.-->
+			<footer th:replace="~{fragment/adminlte/footer :: footerFragment}"></footer>
+		</div>
 	</body>
 </html>
