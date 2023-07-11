@@ -28,8 +28,7 @@
 				<div class="card-header">
 					<h3 class="card-title">jqxGrid</h3><br/>
 					<div>
-						<div id='sampleForm' style="width: 420px; height: auto; float: left;"></div>
-						<div id='formEvents' style="padding-left: 10px; width: 350px; height: 350px; float: left; overflow: auto;"></div>
+						<div id='sampleForm' style="width: 100%; height: auto; float: left;"></div>
 					</div>
 				</div>
 				<!-- /.card-header -->
@@ -58,119 +57,201 @@
 		    createDataTableSorting('#jqxGrid1');
 
 		    var template = [
-	                {
-	                    bind: 'textBoxValue',
-	                    type: 'text',
-	                    label: 'Text input',
-	                    labelPosition: 'left',
-	                    labelWidth: '30%',
-	                    align: 'left',
-	                    width: '250px',
-	                    required: true
-	                },
-	                {
-	                    bind: 'passwordBoxValue',
-	                    type: 'password',
-	                    label: 'Password input',
-	                    labelPosition: 'left',
-	                    labelWidth: '30%',
-	                    align: 'left',
-	                    width: '250px',
-	                    required: true
-	                },
-	                {
-	                    bind: 'nubmberBoxValue',
-	                    type: 'number',
-	                    label: 'Number input',
-	                    labelPosition: 'left',
-	                    labelWidth: '30%',
-	                    align: 'left',
-	                    width: '250px',
-	                    required: true
-	                },
-	                {
-	                    bind: 'dropdownValue',
-	                    type: 'option',
-	                    label: 'Drop down list',
-	                    labelPosition: 'left',
-	                    labelWidth: '30%',
-	                    align: 'left',
-	                    width: '250px',
-	                    required: true,
-	                    component: 'jqxDropDownList',
-	                    options: [
-	                        { label: 'Option 1', value: 'value1' },
-	                        { label: 'Option 2', value: 'value2' },
-	                        { label: 'Option 3', value: 'value3' }
-	                    ]
-	                },
-	                {
-	                    type: 'label',
-	                    label: 'Radio buttons:',
-	                    rowHeight: '40px',
-	                },
-	                {
-	                    bind: 'radiobuttonValue',
-	                    type: 'option',
-	                    label: 'Radio buttons',
-	                    labelPosition: 'right',
-	                    columnWidth: '150px',
-	                    align: 'left',
-	                    optionslayout: 'horizontal',
-	                    options: [
-	                        { label: 'Option 1', value: 'value1' },
-	                        { label: 'Option 2', value: 'value2' },
-	                        { label: 'Option 3', value: 'value3' }
-	                    ]
-	                },
-	                {
-	                    type: 'label',
-	                    label: 'Boolean options / checkboxes:',
-	                    rowHeight: '40px',
-	                },
-	                {
-	                    columns: [
-	                        {
-	                            columnWidth: '140px',
-	                            bind: 'checkboxValue1',
-	                            type: 'boolean',
-	                            label: 'Checkbox 1',
-	                            labelPosition: 'right',
-	                            align: 'left',
-	                            labelPadding: {left: 0, top: 5, right: 0, bottom: 5}
-	                        },
-	                        {
-	                            columnWidth: '140px',
-	                            bind: 'checkboxValue2',
-	                            type: 'boolean',
-	                            label: 'Checkbox 2',
-	                            labelPosition: 'right',
-	                            align: 'left',
-	                            labelPadding: {left: 0, top: 5, right: 0, bottom: 5}
-	                        },
-	                        {
-	                            columnWidth: '140px',
-	                            bind: 'checkboxValue3',
-	                            type: 'boolean',
-	                            label: 'Checkbox 3',
-	                            labelPosition: 'right',
-	                            align: 'left',
-	                            labelPadding: {left: 0, top: 5, right: 0, bottom: 5}
-	                        }
-	                    ]
-	                }
-	            ];
+                {
+	                columns: [
+	                    {
+		                    bind: 'group',
+		                    type: 'option',
+		                    label: 'Group',
+		                    labelPosition: 'top',
+		                    labelWidth: '30%',
+		                    align: 'left',
+		                    width: '120px',
+		                    component: 'jqxDropDownList',
+		                    options: [
+		                        { label: 'Option 1', value: 'value1' },
+		                        { label: 'Option 2', value: 'value2' },
+		                        { label: 'Option 3', value: 'value3' }
+		                    ]
+		                },
+		                {
+		                    bind: 'industry',
+		                    type: 'text',
+		                    label: 'Industry',
+		                    labelPosition: 'top',
+		                    labelWidth: '30%',
+		                    labelPadding: { left: 30 },
+		                    align: 'left',
+		                    width: '220px',
+		                    padding: { left: 30 }
+		                },
+		                {
+		                    bind: 'status',
+		                    type: 'text',
+		                    label: 'Status',
+		                    labelPosition: 'top',
+		                    labelWidth: '30%',
+		                    labelPadding: { left: 30 },
+		                    align: 'left',
+		                    width: '195px',
+		                    padding: { left: 30 }
+		                },
+		                {
+		                    bind: 'offering',
+		                    type: 'text',
+		                    label: 'Offering',
+		                    labelPosition: 'top',
+		                    labelWidth: '30%',
+		                    labelPadding: { left: 30 },
+		                    align: 'left',
+		                    width: '300px',
+		                    padding: { left: 30, right: 0 }
+		                },
+		                {
+		                    bind: 'partner',
+		                    type: 'text',
+		                    label: 'Partner',
+		                    labelPosition: 'top',
+		                    labelWidth: '30%',
+		                    align: 'left',
+		                    width: '120px',
+		                    padding: { left: 0, right: 0 }
+		                }
+	                ]
+                },
+                {
+                    columns: [
+		                {
+		                    bind: 'kickOffStartDate',
+		                    type: 'date',
+		                    label: 'Kick-off date',
+		                    labelPosition: 'top',
+		                    labelWidth: '30%',
+		                    align: 'left',
+		                    width: '185px',
+		                    padding: { right: 0 },
+		                    formatString: 'yyyy-MM-dd',
+		                    readonly: true
+		                },
+		                {
+		                    bind: 'kickOffEndDate',
+		                    type: 'date',
+		                    align: 'left',
+		                    width: '185px',
+		                    padding: { left: 0, top: 31 },
+		                    formatString: 'yyyy-MM-dd',
+		                    disabled: true
+		                },
+		                {
+		                    bind: 'endDate',
+		                    type: 'date',
+		                    label: 'End date',
+		                    labelPosition: 'top',
+		                    labelWidth: '30%',
+		                    labelPadding: { left: 30 },
+		                    align: 'left',
+		                    width: '185px',
+		                    padding: { left: 30 },
+		                    formatString: 'yyyy-MM-dd'
+		                },
+		                {
+		                    bind: 'modifyStartDate',
+		                    type: 'date',
+		                    label: '수정일',
+		                    labelPosition: 'top',
+		                    labelWidth: '30%',
+		                    labelPadding: { left: 45 },
+		                    align: 'left',
+		                    width: '185px',
+		                    padding: { left: 45, right: 0 },
+		                    formatString: 'yyyy-MM-dd',
+		                    readonly: true
+		                },
+		                {
+		                    bind: 'modifyEndDate',
+		                    type: 'date',
+		                    align: 'left',
+		                    width: '185px',
+		                    padding: { left: 0, top: 31 },
+		                    formatString: 'yyyy-MM-dd',
+		                    disabled: true
+		                },
+		                {
+                            columnWidth: '140px',
+                            bind: 'myDeal',
+                            type: 'boolean',
+                            label: 'My Deal',
+                            labelPosition: 'right',
+                            labelPadding: { left: 0, top: 30, right: 0, bottom: 5 },
+                            align: 'left',
+                            padding: { left: 30, top: 30 }
+                        },
+                        {
+                            columnWidth: '140px',
+                            bind: 'digital',
+                            type: 'boolean',
+                            label: 'Digital',
+                            labelPosition: 'right',
+                            labelPadding: { left: 0, top: 30, right: 0, bottom: 5 },
+                            align: 'left',
+                            padding: { left: 30, top: 30 }
+                        }
+	                ]
+	            },
+	            {
+	                columns: [
+	                    {
+		                    bind: 'type',
+		                    type: 'option',
+		                    label: 'Type',
+		                    labelPosition: 'top',
+		                    labelWidth: '30%',
+		                    align: 'left',
+		                    width: '220px',
+		                    component: 'jqxDropDownList',
+		                    options: [
+		                        { label: 'Option 1', value: 'value1' },
+		                        { label: 'Option 2', value: 'value2' },
+		                        { label: 'Option 3', value: 'value3' }
+		                    ]
+		                },
+		                {
+		                    bind: 'keyword',
+		                    type: 'text',
+		                    label: 'Keyword',
+		                    labelPosition: 'top',
+		                    labelWidth: '30%',
+		                    labelPadding: { left: 30 },
+		                    align: 'left',
+		                    width: '350px',
+		                    padding: { left: 30 }
+		                },
+		                {
+		                    bind: 'baseDate',
+		                    type: 'date',
+		                    label: '기준일',
+		                    labelPosition: 'top',
+		                    labelWidth: '30%',
+		                    labelPadding: { left: 30 },
+		                    align: 'left',
+		                    width: '185px',
+		                    padding: { left: 30 },
+		                    formatString: 'yyyy-MM-dd'
+		                }
+	                ]
+                }
+            ];
 
 
 	            var sampleValue = {
-	                'textBoxValue': 'text box value',
-	                'passwordBoxValue': 'password box',
-	                'nubmberBoxValue': 67.44,
-	                'dropdownValue': 'value3',
-	                'radiobuttonValue': 'value2',
-	                'checkboxValue1': false,
-	                'checkboxValue2': false,
-	                'checkboxValue3': true,
+	                'group': 'value3',
+	                'industry': 'text box value',
+	                'myDeal': true,
+	                'kickOffStartDate': '',
+	                'kickOffEndDate': '',
+	                'endDate': '',
+	                'modifyStartDate': '',
+	                'modifyEndDate': ''
 	            };
 
 	            var sampleForm = $('#sampleForm');
@@ -181,7 +262,7 @@
 	                padding: { left: 10, top: 10, right: 0, bottom: 10 }
 	            });
 
-	            sampleValue.checkboxValue2 = true;
+	            // sampleValue.checkboxValue2 = true;
 
 	            sampleForm.val(sampleValue);
 
@@ -189,21 +270,6 @@
 	                var args = event.args;
 	                var newValue = args.value;
 	                var previousValue = args.previousValue;
-
-	                var html = '<h3>Event: formdatachange</h3>';
-	                for (var i in newValue) {
-	                    var newInputValue = newValue[i];
-
-	                    var previousInputValue = '';
-	                    if (previousValue && previousValue[i] !== undefined && previousValue[i] !== newValue[i]) {
-	                        previousInputValue = ', <i>previous value</i>: <span style="color:red;">' + previousValue[i] + '</span>';
-	                        newInputValue = '<span style="color:green;">' + newInputValue + '</span>';
-	                    }
-
-	                    html += "<b>" + i + "</b>: " + newInputValue + previousInputValue + "<br>";
-	                }
-
-	                $('#formEvents').html(html);
 	            });
 		  });
 
