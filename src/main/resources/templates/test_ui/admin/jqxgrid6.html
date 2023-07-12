@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{template}"
+      th:with="title=${'deal list'}">
+
+<head>
+  <title>deal list</title>
+  <script th:inline="javascript" type="text/javascript"
+          th:src="@{/js/tui-pagination/dist/tui-pagination.js}"></script>
+  <script th:inline="javascript" type="text/javascript" th:src="@{/js/tui-grid/dist/tui-grid.js}"></script>
+  <script th:inline="javascript" type="text/javascript" th:src="@{/js/ajaxapi/pjSelectAjax.js}"></script>
+  <link th:inline="css" th:href="@{/js/tui-pagination/dist/tui-pagination.css}" rel="stylesheet" />
+  <link th:inline="css" th:href="@{/js/tui-grid/dist/tui-grid.css}" rel="stylesheet" />
+  <link th:inline="css" th:href="@{/css/jqxGrid/jqx.base.css}" rel="stylesheet" />
+</head>
+
+<body>
+<div layout:fragment="content">
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <div id='sampleForm' style="width: 100%; height: auto; float: left;"></div>
+        <button id="searchBtn" style="float: right; margin-top: 12px; margin-right: 12px;">Search</button>
+      </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <div class="col-12" id="jqxgrid"></div>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+<th:block layout:fragment="script">
+  <script th:src="@{/js/jqxGrid/jqx-all.js}"></script>
+
+  <script th:inline="javascript" type="text/javascript">
+        $(document).ready(function () {
+            createGridList('#jqxgrid');
+
+
+            $.ajax({
+                type : "POST",
+                url : "/getSearchFormData",
+                success : function(data) {
+                    console.log(data);
+                    var template = [
+                        {
+                            columns: [
+                                {
+                                    bind: 'salesGroupValue',
+                                    type: 'option',
+                                    label: 'Group',
+                                    labelPosition: 'top',
+                                    labelWidth: '30%',
+                                    align: 'left',
+                                    width: '120px',
+                                    component: 'jqxDropDownList',
+                                    options: [
+                                        { label: 'Option 1', value: 'value1' },
+                                        { label: 'Option 2', value: 'value2' },
+                                        { label: 'Option 3', value: 'value3' }
+                                    ]
+                                },
+                                {
+                                    bind: 'industryValue',
+                                    type: 'text',
+                                    label: 'Industry',
+                                    labelPosition: 'top',
+                                    labelWidth: '30%',
+                                    labelPadding: { left: 30 },
+                                    align: 'left',
+                                    width: '220px',
+                                    component: 'jqxDropDownList',
+                                    padding: { left: 30 }
+                                },
+                                {
+                                    bind: 'salesStatusValue',
+                                    type: 'text',
+                                    label: 'Status',
+                                    labelPosition: 'top',
+                                    labelWidth: '30%',
+                                    labelPadding: { left: 30 },
+                                    align: 'left',
+                                    width: '195px',
+                                    padding: { left: 30 },
+                                    component: 'jqxDropDownList'
+                                },
+                                {
+                                    bind: 'offeringValue',
+                                    type: 'text',
+                                    label: 'Offering',
+                                    labelPosition: 'top',
+                                    labelWidth: '30%',
+                                    labelPadding: { left: 30 },
+                                    align: 'left',
+                                    width: '300px',
+                                    padding: { left: 30, right: 0 },
+                                    component: 'jqxDropDownList'
+                                },
+                                {
+                                    bind: 'partner',
+                                    type: 'text',
+                                    label: 'Partner',
+                                    labelPosition: 'top',
+                                    labelWidth: '30%',
+                                    align: 'left',
+                                    width: '120px',
+                                    padding: { left: 0, right: 0 }
+                                }
+                            ]
+                        },
+                        {
+                            columns: [
+                                {
+                                    bind: 'kickOffStartDate',
+                                    type: 'date',
+                                    label: 'Kick-off date',
+                                    labelPosition: 'top',
+                                    labelWidth: '30%',
+                                    align: 'left',
+                                    width: '185px',
+                                    padding: { right: 0 },
+                                    formatString: 'yyyy-MM-dd',
+                                    readonly: true
+                                },
+                                {
+                                    bind: 'kickOffEndDate',
+                                    type: 'date',
+                                    align: 'left',
+                                    width: '185px',
+                                    padding: { left: 0, top: 31 },
+                                    formatString: 'yyyy-MM-dd',
+                                    disabled: true
+                                },
+                                {
+                                    bind: 'endDate',
+                                    type: 'date',
+                                    label: 'End date',
+                                    labelPosition: 'top',
+                                    labelWidth: '30%',
+                                    labelPadding: { left: 30 },
+                                    align: 'left',
+                                    width: '185px',
+                                    padding: { left: 30 },
+                                    formatString: 'yyyy-MM-dd'
+                                },
+                                {
+                                    bind: 'modifyStartDate',
+                                    type: 'date',
+                                    label: '수정일',
+                                    labelPosition: 'top',
+                                    labelWidth: '30%',
+                                    labelPadding: { left: 45 },
+                                    align: 'left',
+                                    width: '185px',
+                                    padding: { left: 45, right: 0 },
+                                    formatString: 'yyyy-MM-dd',
+                                    readonly: true
+                                },
+                                {
+                                    bind: 'modifyEndDate',
+                                    type: 'date',
+                                    align: 'left',
+                                    width: '185px',
+                                    padding: { left: 0, top: 31 },
+                                    formatString: 'yyyy-MM-dd',
+                                    disabled: true
+                                },
+                                {
+                                    columnWidth: '140px',
+                                    bind: 'myDeal',
+                                    type: 'boolean',
+                                    label: 'My Deal',
+                                    labelPosition: 'right',
+                                    labelPadding: { left: 0, top: 30, right: 0, bottom: 5 },
+                                    align: 'left',
+                                    padding: { left: 30, top: 30 }
+                                },
+                                {
+                                    columnWidth: '140px',
+                                    bind: 'digital',
+                                    type: 'boolean',
+                                    label: 'Digital',
+                                    labelPosition: 'right',
+                                    labelPadding: { left: 0, top: 30, right: 0, bottom: 5 },
+                                    align: 'left',
+                                    padding: { left: 30, top: 30 }
+                                }
+                            ]
+                        },
+                        {
+                            columns: [
+                                {
+                                    bind: 'type',
+                                    type: 'option',
+                                    label: 'Type',
+                                    labelPosition: 'top',
+                                    labelWidth: '30%',
+                                    align: 'left',
+                                    width: '220px',
+                                    component: 'jqxDropDownList',
+                                    options: [
+                                        { label: 'Option 1', value: 'value1' },
+                                        { label: 'Option 2', value: 'value2' },
+                                        { label: 'Option 3', value: 'value3' }
+                                    ]
+                                },
+                                {
+                                    bind: 'keyword',
+                                    type: 'text',
+                                    label: 'Keyword',
+                                    labelPosition: 'top',
+                                    labelWidth: '30%',
+                                    labelPadding: { left: 30 },
+                                    align: 'left',
+                                    width: '350px',
+                                    padding: { left: 30 }
+                                },
+                                {
+                                    bind: 'baseDate',
+                                    type: 'date',
+                                    label: '기준일',
+                                    labelPosition: 'top',
+                                    labelWidth: '30%',
+                                    labelPadding: { left: 30 },
+                                    align: 'left',
+                                    width: '185px',
+                                    padding: { left: 30 },
+                                    formatString: 'yyyy-MM-dd'
+                                }
+                            ]
+                        }
+                    ];
+
+
+                    /* var sampleValue = {
+                         'group': 'value3',
+                         'industry': 'text box value',
+                         'myDeal': true,
+                         'kickOffStartDate': '',
+                         'kickOffEndDate': '',
+                         'endDate': '',
+                         'modifyStartDate': '',
+                         'modifyEndDate': ''
+                     };*/
+             /*      $("#jqxDropDownList").jqxDropDownList('addItem', { label: 'salesGroupValue', value: data.salesGroupValue} );
+                    $("#jqxDropDownList").jqxDropDownList('addItem', { label: 'salesStatusValue', value: data.salesStatusValue} );
+                    $("#jqxDropDownList").jqxDropDownList('addItem', { label: 'industryValue', value: data.industryValue} );
+                    $("#jqxDropDownList").jqxDropDownList('addItem', { label: 'offeringValue', value: data.offeringValue} );*/
+                  /*  var sampleValue = {
+
+                        'salesGroupValue' : data.salesGroupValue,
+                        'salesStatusValue' : data.salesStatusValue,
+                        'industryValue' : data.industryValue,
+                        'offeringValue' : data.offeringValue
+
+                    };
+
+*/
+
+                    var sampleForm = $('#sampleForm');
+
+                    sampleForm.jqxForm({
+                        template: template,
+                        backgroundColor: '#ffffff',
+                        borderColor: '#edebe9',
+                        padding: { left: 10, top: 10, right: 0, bottom: 10 }
+                    });
+
+
+                },
+                error : function(err) {
+                    console.log(err); //에러시 실행 할 내용
+                }
+            });
+
+
+
+            $("#searchBtn").jqxButton({ template: "primary" });
+
+            function createGridList(selector){
+                var reqData = getJsonBySerializeArray($("#jqxgrid").serializeArray());
+                var source = {
+                    datatype: "json",
+                    type : "POST",
+                    data : reqData,
+                    dataFields: [
+                        {  name: 'dealCode',  type: 'string'  },
+                        {  name: 'salesStatusDesc',  type: 'string'  },
+                        {  name: 'digital',  type: 'string'  },
+                        {  name: 'offeringDesc',  type: 'string'  },
+                        {  name: 'leadPartnerGroupDesc',  type: 'string'  },
+                        {  name: 'industryDesc',  type: 'string'  },
+                        {  name: 'subIndustryDesc',  type: 'string'  },
+                        {  name: 'leadPartnerName',  type: 'string'  },
+                        {  name: 'supportPartName',  type: 'string'  },
+                        {  name: 'supportPrincipal',  type: 'string'  },
+                        {  name: 'clientName',  type: 'string'  },
+                        {  name: 'endClientName',  type: 'string'  },
+                        {  name: 'topic',  type: 'string'  },
+                        {  name: 'salesStageDesc',  type: 'string'  },
+                        {  name: 'grossRevenue',  type: 'int'  },
+                        {  name: 'netSales',  type: 'int'  },
+                        {  name: 'inQuarterRevenue',  type: 'int'  },
+                        {  name: 'kickOffStartDate',  type: 'string'  },
+                        {  name: 'kickOffEndDate',  type: 'string'  }
+                 /*       {  name: 'salesStatusValue',  type: 'string'  },
+                        {  name: 'salesGroupValue',  type: 'string'  },
+                        {  name: 'industryValue',  type: 'string'  },
+                        {  name: 'offeringValue',  type: 'string'  }*/
+                    ],
+                    url: '/getDealList',
+                    beforeSend : function(jqXHR, settings){
+                        jqXHR.setRequestHeader("AJAX", "true");
+                    },
+                    loadError: function(jqXHR, status, error){
+                        fnErrorHandle(jqXHR,status,error);
+                        console.log(error);
+                    },
+                    loadComplete : function(data, status) {
+                        console.log(data);
+                    }
+                };
+
+                var dataAdapter = new $.jqx.dataAdapter(source);
+                var options = {
+                        width: '100%',
+                        source: dataAdapter,
+                        sortable: true,
+                        pageable : true,
+                        columnsHeight: 50,
+                        columns: [
+                            /*{ text:'No', align:'center', datafield:'no', width:'80',cellclassname: 'grd_col_white', pinned:true, cellsalign:'center' },*/
+                            {
+                                text: 'Deal</br>Code',
+                                dataField : 'dealCode',
+                                width: "5%",
+                                align: 'left' //컬럼 헤더의 정렬값을 지정합니다. 기본값은 left입니다.
+                            },
+                            {
+                                text: 'Status',
+                                dataField: 'salesStatusDesc',
+                                width: "5%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'Digital',
+                                dataField: 'digital',
+                                width: "3%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'Offering',
+                                dataField: 'offeringDesc',
+                                width: "7%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'Group',
+                                dataField: 'leadPartnerGroupDesc',
+                                width: "5%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'Industry',
+                                dataField: 'industryDesc',
+                                width: "4%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'sub</br>Industry',
+                                dataField: 'subIndustryDesc',
+                                width: "8%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'Lead</br>Partner',
+                                dataField: 'leadPartnerName',
+                                width: "5%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'Support</br>Partner',
+                                dataField: 'supportPartName',
+                                width: "5%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'Support</br>Pricipal',
+                                dataField: 'supportPrincipal',
+                                width: "6%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'Client',
+                                dataField: 'clientName',
+                                width: "5%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'End</br>Client',
+                                dataField: 'endClientName',
+                                width: "5%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'Topic',
+                                dataField: 'topic',
+                                width: "9%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'Sales</br>Stage',
+                                dataField: 'salesStageDesc',
+                                width: "6%",
+                                align: 'left'
+                            },
+                            {
+                                text: 'Gross</br>Sales',
+                                dataField: 'grossRevenue',
+                                cellsFormat : 'd', // 세자리 마다 콤마를 찍는 숫자 표기입니다.
+                                //f+숫자 :float(소수점) , p : percent 등이 있습니다.
+                                cellsalign: 'left', // cell 값의 위치를 지정할 수 있습니다. (left,right,center)
+                                width: "5%"
+                            },
+                            {
+                                text: 'Net</br>Sales',
+                                dataField: 'netSales',
+                                cellsFormat : 'd',
+                                cellsAlign: 'left',
+                                width: "5%"
+                            },
+                            {
+                                text: 'In Quarter</br>Revenue',
+                                dataField: 'inQuarterRevenue',
+                                cellsFormat : 'd', // 세자리 마다 콤마를 찍는 숫자 표기입니다.
+                                //f+숫자 :float(소수점) , p : percent 등이 있습니다.
+                                cellsAlign: 'left', // cell 값의 위치를 지정할 수 있습니다. (left,right,center)
+                                // default는 left 입니다.
+                                width: "5%"
+                            },
+                            {
+                                text: 'Project</br>Kick-off date',
+                                dataField: 'kickOffStartDate',
+                                cellsFormat: "yyyy-MM-dd", // 날짜 표시 형태를 지정합니다.
+                                // cellsformat을 지정하지 않으면 미국식 표기로 나옵니다.
+                                width: "6%"
+                            },
+                            {
+                                text: 'Project</br>end date',
+                                dataField: 'kickOffEndDate',
+                                cellsFormat: "yyyy-MM-dd",
+                                width: "6%"
+                            }
+                        ]
+                };
+                    var myDataTable = jqwidgets.createInstance(selector, 'jqxDataTable', options);
+            }
+
+            function getJsonBySerializeArray(data){
+                var obj = {};
+                if(data){
+                    $.each(data, function() {
+                        obj[this.name] = this.value;
+                    });
+                }
+                return obj;
+            }
+        });
+
+    </script>
+</th:block>
+</body>
+
+</html>

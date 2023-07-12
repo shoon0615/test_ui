@@ -56,6 +56,22 @@
 		  $(function () {
 		    createDataTableSorting('#jqxGrid1');
 
+		    var tmpList = [];
+			$.ajax({
+			  type : "GET",
+			  url : "https://jsonplaceholder.typicode.com/todos",
+			  async : false,
+			  success : function(data) {
+				tmpList = data;
+			  }
+			});
+			tmpList = tmpList.filter(e => e.id <= 12).map(e => {
+			  if(e.id <= 4) return {label: 'A_' + e.id, value: e.id, name: 'aa'};
+			  if(e.id > 4 && e.id <= 8) return {label: 'B_' + e.id, value: e.id, name: 'bb'};
+			  if(e.id > 8 && e.id <= 12) return {label: 'C_' + e.id, value: e.id, name: 'cc'};
+			});
+			console.log("tmpList", tmpList);
+
 		    var template = [
                 {
 	                columns: [
@@ -68,22 +84,24 @@
 		                    align: 'left',
 		                    width: '120px',
 		                    component: 'jqxDropDownList',
-		                    options: [
-		                        { label: 'Option 1', value: 'value1' },
-		                        { label: 'Option 2', value: 'value2' },
-		                        { label: 'Option 3', value: 'value3' }
-		                    ]
+		                    options: tmpList.filter(e => e.value <= 4)	// e => e.code_name == 'Sales Status'
 		                },
 		                {
 		                    bind: 'industry',
-		                    type: 'text',
+		                    type: 'option',
 		                    label: 'Industry',
 		                    labelPosition: 'top',
 		                    labelWidth: '30%',
 		                    labelPadding: { left: 30 },
 		                    align: 'left',
 		                    width: '220px',
-		                    padding: { left: 30 }
+		                    padding: { left: 30 },
+		                    component: 'jqxDropDownList',
+		                    options: [
+								{ label: 'Option 1', value: 'value1' },
+								{ label: 'Option 2', value: 'value2' },
+								{ label: 'Option 3', value: 'value3' }
+							]
 		                },
 		                {
 		                    bind: 'status',
@@ -209,11 +227,7 @@
 		                    align: 'left',
 		                    width: '220px',
 		                    component: 'jqxDropDownList',
-		                    options: [
-		                        { label: 'Option 1', value: 'value1' },
-		                        { label: 'Option 2', value: 'value2' },
-		                        { label: 'Option 3', value: 'value3' }
-		                    ]
+		                    options: tmpList.filter(e => e.value > 4 && e.value <= 8)
 		                },
 		                {
 		                    bind: 'keyword',
