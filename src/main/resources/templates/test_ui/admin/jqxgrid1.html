@@ -56,21 +56,16 @@
 		  $(function () {
 		    createDataTableSorting('#jqxGrid1');
 
-		    var tmpList = [];
+		    var commonList = [];
 			$.ajax({
 			  type : "GET",
-			  url : "https://jsonplaceholder.typicode.com/todos",
+			  url : "http://localhost:8091/api/v1/adminlte/common",
 			  async : false,
 			  success : function(data) {
-				tmpList = data;
+				commonList = data;
 			  }
 			});
-			tmpList = tmpList.filter(e => e.id <= 12).map(e => {
-			  if(e.id <= 4) return {label: 'A_' + e.id, value: e.id, name: 'aa'};
-			  if(e.id > 4 && e.id <= 8) return {label: 'B_' + e.id, value: e.id, name: 'bb'};
-			  if(e.id > 8 && e.id <= 12) return {label: 'C_' + e.id, value: e.id, name: 'cc'};
-			});
-			console.log("tmpList", tmpList);
+			console.log("commonList", commonList);
 
 		    var template = [
                 {
@@ -84,7 +79,7 @@
 		                    align: 'left',
 		                    width: '120px',
 		                    component: 'jqxDropDownList',
-		                    options: tmpList.filter(e => e.value <= 4)	// e => e.code_name == 'Sales Status'
+		                    options: commonList.filter(e => e.codeName == 'Sales Stage')
 		                },
 		                {
 		                    bind: 'industry',
@@ -227,7 +222,7 @@
 		                    align: 'left',
 		                    width: '220px',
 		                    component: 'jqxDropDownList',
-		                    options: tmpList.filter(e => e.value > 4 && e.value <= 8)
+		                    options: commonList.filter(e => e.codeName == 'Currency')
 		                },
 		                {
 		                    bind: 'keyword',
